@@ -1,0 +1,18 @@
+version: "3.8"
+services: 
+  karate-tests: 
+    image: karate-tests
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    volumes: 
+      - ./target:/usr/src/app/target
+      - ~/.m2:/root/.m2
+    ports: 
+      - 9222:9222
+      - 5900:5900
+    environment: 
+      - KARATE_SOCAT_START:true
+    cap_add:
+      - SYS_ADMIN
+    command: mvn test
